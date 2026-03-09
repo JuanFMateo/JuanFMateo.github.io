@@ -2,3 +2,8 @@
 
 h4 {background:grey;color:white;text-align:center}
 
+table {border:3px solid black}
+
+th {text-align: center; background:lightgrey; border: solid black 2px}
+
+td {border: solid black 2px; margin:10px}
