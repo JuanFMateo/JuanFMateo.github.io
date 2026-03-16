@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="miestilo.css">
+ <script type="text/x-mathjax-config">
+ 
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      R: "{\\mathbb R}",
+      N: "{\\mathbb N}",
+      Z: "{\\mathbb Z}",
+      bold: ["{\\bf #1}",1]
+    }
+  }
+});
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+TeX: {
+  extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"]
+}
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML' async></script>
+
+<body>
+
+<h1 style="text-align:center"> MATEMÁTICAS DINÁMICAS </h1>
+
+<h2 style="text-align:center"> Universidad de Cádiz</h2>
+
+<h3 style="text-align:center">Alumno: Juan Francisco Mateo Melero </h3>
+<h4> DESRIPCIÓN DEL CONTENIDO </h4>
+	<p> A la programación de rutinas con Javascript. Para este ejercicio insertados dentro dentro del mismo código HTML.</p>
+
+<h4> LOGO DE LA UCA </h4>
+
+<div style="display:flex ; justify-content:center" >
+	<img src="LOGOUCA.png" alt="Logo UCA" style="width:10%">
+</div>
+
+<h4> SECCIÓN DE LA ACTIVIDAD </h4>
+
+<p> Vamos a calcular la solución de la ecuación mediante el método de la bisección: </p>
+
+<p style="text-align:center"> Ecuación a calcular: $2^x-5= 0$ <p>
+
+<table>
+
+<tr>
+	<th> Elemento </th>
+	<th style="text-align:center"> Valor </th>
+	<th style="text-align:center"> $f( Valor )$ </th>	
+</tr>
+<tr>
+	<td> Inicio del intervalo inicial </td>
+	<td id="ini" style="text-align:center"> </td>
+	<td id="fini"style="text-align:center"> </td>
+</tr>
+<tr>
+	<td> Final del intervalo inicial</td>
+	<td id="fin" style="text-align:center"> </td>
+	<td id="ffin" style="text-align:center"> </td>
+</tr>
+<tr>
+	<td> Numero de iteraciones </td>
+	<td id="iteraciones" style="text-align:center"> </td>
+</tr>
+<tr>
+	<td> Comentarios </td>
+	<td colspan="2" id="comentario"> </td>
+</tr>
+
+<tr>
+	<td> Solución exacta </td>
+	<td colspan="2" id="sol"> </td>
+</tr>
+<tr>
+	<td> Solucion por intervalo </td>
+</tr>
+
+<tr>
+	<td> Inferior del intevalo solución </td>
+	<td id="isol"> </td>
+	<td id="fisol"> </td>	
+</tr>
+<tr>
+	<td> Superior del intevalo solución </td>
+	<td id="ssol"> </td>
+	<td id="fssol"> </td>
+</tr>
+
+
+</table>
+
+<p> El script para el cálculo de la bisección es el siguiente: </p>
+
+<pre>
+<code>
+function Biseccion(g,a,b,n){
+		
+	for (let i=0;i&lt n;i++){
+		g=f;
+		pm=(a+b)/2;
+		console.log(a+" "+pm+" "+b+"--"+f(a)+" "+f(pm)+" "+f(b)); // Para la revisión de las iteraciones
+		
+		if (f(pm)==0){
+			break;  //Si encuentra un valor exacto se para. La solucion es pm
+			};
+		 // compara que el cambio de signo y consecuentemente el valor del nuevo intervalo
+		if ((f(a)*f(pm))&lt 0){b=pm}else {a=pm}
+		}
+		// Si no encuentra solucion exacta asigna los valore a y b a los extremos del intervalo
+		soli=a;
+		sols=b;
+	return true
+	}
+</code>
+</pre>
+
+<script>	
+	function f(x){return ((2**x)-5)} ;// Definición de la función para resolver la ecuación
+	let ii = -6 ;	// Punto incial del intervalo
+	let fi = 6	;	// Punto final del intervalo
+	let ni = 10 ;	// Numero de iteraciones
+	let sol= ""; 	// Valor si la solución es exacta
+	let pm=""; 		// variable del punto medio de la fución
+	let soli="";	// Valor inferior del intervalo solucion
+	let sols="";	// Valor superior del intervalo solucion
+	
+	// Vamos a escribir en cada casilla de la tabla los valores de las variables y de la función asociada
+	document.getElementById("ini").innerHTML = ii;
+	document.getElementById("fini").innerHTML =f(ii);
+	document.getElementById("fin").innerHTML =fi;
+	document.getElementById("ffin").innerHTML =f(fi);	
+	document.getElementById("iteraciones").innerHTML =ni;	
+	
+	
+	// Definicion de la funcion de biseción
+
+	
+function Biseccion(g,a,b,n){
+		
+	for (let i=0;i<n;i++){
+		g=f;
+		pm=(a+b)/2;
+		console.log(a+" "+pm+" "+b+"--"+f(a)+" "+f(pm)+" "+f(b)); // Para la revisión de las iteraciones
+		
+		if (f(pm)==0){
+			break;  //Si encuentra un valor exacto se para
+			};
+		
+		if ((f(a)*f(pm))<0){b=pm}else {a=pm}
+
+		}
+		// Si no encuentra solucion exacta asigna los valore a y b a los extremos del intervalo
+		soli=a;
+		sols=b;
+	return true
+	}
+
+	
+	// Comprobación inicial de que exista una solución en el intervalo y si es posible ejecuta la función de la bisección
+	if ((f(ii)*f(fi))>0){
+		document.getElementById("comentario").innerHTML = "Sistema irresoluble";
+		} else {
+		document.getElementById("comentario").innerHTML = "Sistema con solución";
+		Biseccion(f,ii,fi,ni)
+	
+	// Comprobacion de si la solución es exacta o por intervalo y apuntar en la tabla los valores de la misma
+	if (f(pm)==0){
+		document.getElementById("sol").innerHTML = pm;
+		document.getElementById("isol").innerHTML = "Solucion exacta";
+		document.getElementById("ssol").innerHTML = "Solucion exacta";
+		}else{
+		document.getElementById("sol").innerHTML = "Solución por intervalo";
+		document.getElementById("isol").innerHTML = soli;
+		document.getElementById("ssol").innerHTML = sols;
+		document.getElementById("fisol").innerHTML = f(soli);
+		document.getElementById("fssol").innerHTML = f(sols);
+			}
+		}
+</script>
+
+</body>
+</html>	
