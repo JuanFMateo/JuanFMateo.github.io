@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="miestilo.css">
+ <script type="text/x-mathjax-config">
+ 
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+MathJax.Hub.Config({
+  TeX: {
+    Macros: {
+      R: "{\\mathbb R}",
+      N: "{\\mathbb N}",
+      Z: "{\\mathbb Z}",
+      bold: ["{\\bf #1}",1]
+    }
+  }
+});
+MathJax.Hub.Config({
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+});
+TeX: {
+  extensions: ["AMSmath.js", "AMSsymbols.js", "color.js"]
+}
+</script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML' async></script>
+
+<body>
+
+<h1 style="text-align:center"> MATEMÁTICAS DINÁMICAS </h1>
+
+<h2 style="text-align:center"> Universidad de Cádiz</h2>
+
+<h3 style="text-align:center">Alumno: Juan Francisco Mateo Melero </h3>
+<h4> DESRIPCIÓN DEL CONTENIDO </h4>
+	<p> A la programación de rutinas con Javascript. Para este ejercicio insertados dentro dentro del mismo código HTML.</p>
+
+<h4> LOGO DE LA UCA </h4>
+
+<div style="display:flex ; justify-content:center" >
+	<img src="LOGOUCA.png" alt="Logo UCA" style="width:10%">
+</div>
+
+<h4> SECCIÓN DE LA ACTIVIDAD </h4>
+
+<p> Vamos a dibujar un canvas sobre el cual se puede trazar una trayectoria haciendo clics sucesivos.</p>
+
+<div style="display:flex ; justify-content:center" >
+	<canvas id="myCanvas" width="400" height="300" style="border: 2px solid" onclick='muestraClick(event)'></canvas>
+
+</div>
+
+<div id='clickdiv'></div>
+<script>
+// Vamos a inciar las variables que van ha hacer que podamos dibujar cada vez que hagamos click
+
+var x0;
+var y0;
+var x;
+var y;
+var click; // Variable que nos indica si es el primer click o no
+click=0;
+
+function muestraClick(event){
+  var dd=document.getElementById('clickdiv'); //Asocia la linea de escritura al objeto dd
+  var cc=document.getElementById('myCanvas'); //Asocia el canva al elemento cc
+  var ctx = cc.getContext("2d");	// Asociamos a objeto ctx el canva como un objeto de dibujo
+
+  var coordCanvas=cc.getBoundingClientRect(); 
+  x=event.clientX-coordCanvas.x;
+  y=event.clientY-coordCanvas.y;
+  
+	if (click==0){ //Comprobamos si es el primer punto y si lo es cogemos sus coordenadas de referencia
+			x0=x;  
+			y0=y;
+			click=1;
+			};
+	// Dibujamos la linea despues del primer punto
+	if (click==1){
+	  ctx.moveTo(x0,y0);
+	  ctx.lineTo(x, y);
+	  ctx.stroke();
+	  x0=x;
+	  y0=y;
+	  dd.innerText=x+" "+y; //Cambia el texto del objeto dd a las coordenas x,y del punto seleccionado
+	  
+	  }
+}
+</script>
+
+
+
+
+</body>
+</html>	
